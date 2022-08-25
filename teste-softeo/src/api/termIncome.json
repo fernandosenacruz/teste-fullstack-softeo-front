@@ -5,16 +5,13 @@
     "totalCostDentalTreatment": 500,
     "numberInstallment": 5,
     "installmentAmount": 100,
-    "dateInstallmentAmount": {
-      "paymentDay": 5,
-      "paymentMonths": [
-        "05-01-2022",
-        "05-02-2022",
-        "05-03-2022",
-        "05-04-2022",
-        "05-05-2022"
-      ]
-    }
+    "paymentMonths": [
+      "05-01-2022",
+      "05-02-2022",
+      "05-03-2022",
+      "05-04-2022",
+      "05-05-2022"
+    ]
   },
   {
     "id": "2",
@@ -22,9 +19,6 @@
     "totalCostDentalTreatment": 100,
     "numberInstallment": 2,
     "installmentAmount": 50,
-    "dateInstallmentAmount": {
-      "paymentDay": 15,
-      "paymentMonths": ["15-05-2022", "15-06-2022"]
-    }
+    "paymentMonths": ["15-05-2022", "15-06-2022"]
   }
 ]
