@@ -1,21 +1,48 @@
+import * as React from 'react';
 import PropTypes from 'prop-types';
-import React from 'react';
+import Box from '@mui/material/Box';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import Typography from '@mui/material/Typography';
 import PaymentMonthTable from './PaymentMonthTable';
+import { Grid } from '@mui/material';
 
-const Card = ({ pacient }) => {
+const card = ({
+  name,
+  totalCostDentalTreatment,
+  numberInstallment,
+  installmentAmount,
+  paymentMonths,
+}) => (
+  <Grid container direction="row" justifyContent="center" alignItems="center">
+    <CardContent sx={{ borderRadius: '50' }}>
+      <Typography color="text.secondary" variant="h5" gutterBottom>
+        Paciente: {name}
+      </Typography>
+      <Typography component="div">
+        Custo Total do Tratamento: {totalCostDentalTreatment}
+      </Typography>
+      <Typography sx={{ mb: 1.5 }} color="text.secondary">
+        Número de Parcelas: {numberInstallment}
+      </Typography>
+      <Typography variant="body2">
+        Valor da Parcela: {installmentAmount}
+      </Typography>
+    </CardContent>
+      <PaymentMonthTable paymentMonths={paymentMonths} />
+  </Grid>
+);
+
+const CardPatient = ({ patient }) => {
   return (
-    <div className="card">
-      <h3>Paciente: {pacient.name}</h3>
-      <h4>Custo Total do Tratamento: {pacient.totalCostDentalTreatment}</h4>
-      <h4>Número de Parcelas: {pacient.numberInstallment}</h4>
-      <h5>Valor da Parcela: {pacient.installmentAmount}</h5>
-      <PaymentMonthTable paymentMonths={pacient.paymentMonths} />
-    </div>
+    <Box sx={{ minWidth: 275 }}>
+      <Card variant="outlined">{card(patient)}</Card>
+    </Box>
   );
 };
 
-Card.propTypes = {
-  pacient: PropTypes.shape({
+CardPatient.propTypes = {
+  patient: PropTypes.shape({
     paymentMonths: PropTypes.arrayOf(PropTypes.string),
     installmentAmount: PropTypes.number,
     name: PropTypes.string,
@@ -24,4 +51,4 @@ Card.propTypes = {
   }),
 };
 
-export default Card;
+export default CardPatient;
