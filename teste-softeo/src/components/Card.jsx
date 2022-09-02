@@ -16,17 +16,17 @@ const card = ({
 }) => (
   <Grid container direction="row" justifyContent="center" alignItems="center">
     <CardContent sx={{ borderRadius: '50' }}>
-      <Typography color="text.secondary" variant="h5" gutterBottom>
+      <Typography color="text.secondary" variant="h6" gutterBottom>
         Paciente: {name}
       </Typography>
       <Typography component="div">
-        Custo Total do Tratamento: {totalCostDentalTreatment}
+        Custo Total do Tratamento: R$ {totalCostDentalTreatment}
       </Typography>
       <Typography sx={{ mb: 1.5 }} color="text.secondary">
         Número de Parcelas: {numberInstallment}
       </Typography>
       <Typography variant="body2">
-        Valor da Parcela: {installmentAmount}
+        Valor da Parcela: R$ {installmentAmount}
       </Typography>
     </CardContent>
     <PaymentMonthTable paymentMonths={paymentMonths} />

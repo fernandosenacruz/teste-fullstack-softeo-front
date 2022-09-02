@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -14,31 +14,56 @@ import {
   ptBR,
 } from '@mui/x-date-pickers';
 import pt_BR from 'date-fns/locale/pt-BR';
+import { getFilteredPatiens, getPatients } from '../api/api';
+import { PatientsContext } from '../context/Context';
 
 function Calc() {
-  const [value, setValue] = useState(dayjs());
+  const { setFiltredPatients, setFilterActived, setPatients } = useContext(PatientsContext);
+  const [date, setDate] = useState(dayjs());
   const [showInput, setShowInput] = useState(false);
-  // const [month, setMonth] = useState('');
-  // const [dateIncome, setDateIncome] = useState('');
 
   useEffect(() => {}, []);
 
-  console.log(value);
-
-  const handleMonth = (e) => {
-    if (e.target.id !== 'other-month') {
-      setShowInput(false);
-      setMonth(e.target.id);
-    } else {
-      setShowInput(true);
-      setDateIncome(e.target.id);
+  const handleMonth = async (e) => {
+    console.log(e.target.id);
+    switch (e.target.id) {
+      case 'every-months':
+        setShowInput(false);
+        setFilterActived(false);
+        getPatients(setPatients);
+      case 'actually-month':
+        setShowInput(false);
+        setFilterActived(true);
+        await getFilteredPatiens(setFiltredPatients, date.format('DD-MM-YYYY'));
+        break;
+      case 'next-month':
+        setShowInput(false);
+        setFilterActived(true);
+        const nextMonth = date.add(1, 'M');
+        await getFilteredPatiens(
+          setFiltredPatients,
+          nextMonth.format('DD-MM-YYYY'),
+        );
+      case 'other-month':
+        setShowInput(true);
+      
+      default:
+        break;
     }
+    // if (e.target.id === 'actually-month') {
+    //   setShowInput(false);
+    //   await getFilteredPatiens(setFiltredPatients, date.format('DD-MM-YYYY'));
+    // } else if (e.target.id === 'next-month') {
+    //   setShowInput(false);
+    //   const nextMonth = date.add(1, 'M');
+    //   await getFilteredPatiens(
+    //     setFiltredPatients,
+    //     nextMonth.format('DD-MM-YYYY'),
+    //   );
+    // } else {
+    //   setShowInput(true);
+    // }
   };
-
-  // const handleDateIncome = (e) => {
-  //   console.log(e.target.value);
-  //   setDateIncome(e.target.value);
-  // };
 
   return (
     <FormControl>
@@ -47,6 +72,13 @@ function Calc() {
         aria-labelledby="date-radio-buttons-group-label"
         name="radio-buttons-group"
       >
+        <FormControlLabel
+          value="every-months"
+          name="selected-month"
+          label="todos os mês"
+          onClick={(e) => handleMonth(e)}
+          control={<Radio id="every-months" />}
+        />
         <FormControlLabel
           value="actually-month"
           name="selected-month"
@@ -83,10 +115,14 @@ function Calc() {
               id="date-income"
               name="date-income"
               label="Escolha uma data"
-              // onChange={(e) => handleDateIncome(e)}
-              value={value}
-              onChange={(newValue) => {
-                setValue(newValue);
+              value={date}
+              onChange={(newDate) => {
+                setFilterActived(true);
+                setDate(newDate);
+                getFilteredPatiens(
+                  setFiltredPatients,
+                  newDate.format('DD-MM-YYYY'),
+                );
               }}
               renderInput={(params) => <TextField {...params} />}
             />
