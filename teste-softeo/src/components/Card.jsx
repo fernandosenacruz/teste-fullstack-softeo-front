@@ -29,7 +29,7 @@ const card = ({
         Valor da Parcela: {installmentAmount}
       </Typography>
     </CardContent>
-      <PaymentMonthTable paymentMonths={paymentMonths} />
+    <PaymentMonthTable paymentMonths={paymentMonths} />
   </Grid>
 );
 

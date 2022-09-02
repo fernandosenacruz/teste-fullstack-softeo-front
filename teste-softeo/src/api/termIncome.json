@@ -15,54 +15,32 @@
   },
   {
     "id": "2",
-    "name": "xelo",
-    "totalCostDentalTreatment": 100,
-    "numberInstallment": 2,
-    "installmentAmount": 50,
-    "paymentMonths": ["15-05-2022", "15-06-2022"]
+    "name": "xibil",
+    "totalCostDentalTreatment": 5000,
+    "numberInstallment": 5,
+    "installmentAmount": 1000,
+    "paymentMonths": [
+      "05-09-2022",
+      "05-10-2022",
+      "05-11-2022",
+      "05-12-2022",
+      "05-01-2023"
+    ]
   },
   {
     "id": "3",
-    "name": "ximira",
-    "totalCostDentalTreatment": 500,
-    "numberInstallment": 5,
-    "installmentAmount": 100,
-    "paymentMonths": [
-      "05-01-2022",
-      "05-02-2022",
-      "05-03-2022",
-      "05-04-2022",
-      "05-05-2022"
-    ]
+    "name": "xelo",
+    "totalCostDentalTreatment": 1000,
+    "numberInstallment": 2,
+    "installmentAmount": 500,
+    "paymentMonths": ["15-05-2022", "15-06-2022"]
   },
   {
     "id": "4",
-    "name": "xelo",
+    "name": "shakira",
     "totalCostDentalTreatment": 100,
     "numberInstallment": 2,
     "installmentAmount": 50,
-    "paymentMonths": ["15-05-2022", "15-06-2022"]
-  },
-  {
-    "id": "5",
-    "name": "ximira",
-    "totalCostDentalTreatment": 500,
-    "numberInstallment": 5,
-    "installmentAmount": 100,
-    "paymentMonths": [
-      "05-01-2022",
-      "05-02-2022",
-      "05-03-2022",
-      "05-04-2022",
-      "05-05-2022"
-    ]
-  },
-  {
-    "id": "6",
-    "name": "xelo",
-    "totalCostDentalTreatment": 100,
-    "numberInstallment": 2,
-    "installmentAmount": 50,
-    "paymentMonths": ["15-05-2022", "15-06-2022"]
+    "paymentMonths": ["15-10-2022", "15-11-2022"]
   }
 ]

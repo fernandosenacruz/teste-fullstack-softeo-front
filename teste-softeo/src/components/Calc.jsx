@@ -1,15 +1,29 @@
 import React, { useEffect, useState } from 'react';
-// import pacients from '../api/termIncome.json';
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormControl from '@mui/material/FormControl';
+import FormLabel from '@mui/material/FormLabel';
+import dayjs from 'dayjs';
+import TextField from '@mui/material/TextField';
+import Stack from '@mui/material/Stack';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import {
+  LocalizationProvider,
+  MobileDatePicker,
+  ptBR,
+} from '@mui/x-date-pickers';
+import pt_BR from 'date-fns/locale/pt-BR';
 
 function Calc() {
+  const [value, setValue] = useState(dayjs());
   const [showInput, setShowInput] = useState(false);
-  const [month, setMonth] = useState('');
+  // const [month, setMonth] = useState('');
   // const [dateIncome, setDateIncome] = useState('');
 
   useEffect(() => {}, []);
 
-  console.log(month);
-  // const monthIncome = pacients.map(pacient => pacient.dateInstallmentAmount.paymentMonths.filter(paymentMonth => paymentMonth === month));
+  console.log(value);
 
   const handleMonth = (e) => {
     if (e.target.id !== 'other-month') {
@@ -21,79 +35,66 @@ function Calc() {
     }
   };
 
-  const handleDateIncome = (e) => {
-    console.log(e.target.value);
-    setDateIncome(e.target.value);
-  };
+  // const handleDateIncome = (e) => {
+  //   console.log(e.target.value);
+  //   setDateIncome(e.target.value);
+  // };
 
   return (
-    <div>
-      <fieldset>
-        <legend>Receita em:</legend>
-        <div>
-          <input
-            type="radio"
-            id="actually-month"
-            name="selected-month"
-            onClick={(e) => handleMonth(e)}
-          />
-          <label htmlFor="actually-month">mês atual</label>
-        </div>
-        <div>
-          <input
-            type="radio"
-            id="next-month"
-            name="selected-month"
-            onClick={(e) => handleMonth(e)}
-          />
-          <label htmlFor="next-month">próximo mês</label>
-        </div>
-        <div>
-          <input
-            type="radio"
-            id="other-month"
-            name="selected-month"
-            onClick={(e) => handleMonth(e)}
-          />
-          <label htmlFor="other-month">outro mês</label>
-        </div>
-        {showInput && (
-          <div>
-            <input
-              type="date"
+    <FormControl>
+      <FormLabel id="date-radio-buttons-group-label">Receita em:</FormLabel>
+      <RadioGroup
+        aria-labelledby="date-radio-buttons-group-label"
+        name="radio-buttons-group"
+      >
+        <FormControlLabel
+          value="actually-month"
+          name="selected-month"
+          label="mês atual"
+          onClick={(e) => handleMonth(e)}
+          control={<Radio id="actually-month" />}
+        />
+        <FormControlLabel
+          value="next-month"
+          name="selected-month"
+          label="próximo mês"
+          onClick={(e) => handleMonth(e)}
+          control={<Radio id="next-month" />}
+        />
+        <FormControlLabel
+          value="other-month"
+          name="selected-month"
+          label="outra data"
+          onClick={(e) => handleMonth(e)}
+          control={<Radio id="other-month" />}
+        />
+      </RadioGroup>
+
+      {showInput && (
+        <LocalizationProvider
+          dateAdapter={AdapterDayjs}
+          adapterLocale={pt_BR}
+          localeText={
+            ptBR.components.MuiLocalizationProvider.defaultProps.localeText
+          }
+        >
+          <Stack spacing={1}>
+            <MobileDatePicker
               id="date-income"
               name="date-income"
-              onChange={(e) => handleDateIncome(e)}
-              placeholder="dia/mês/ano"
+              label="Escolha uma data"
+              // onChange={(e) => handleDateIncome(e)}
+              value={value}
+              onChange={(newValue) => {
+                setValue(newValue);
+              }}
+              renderInput={(params) => <TextField {...params} />}
             />
-          </div>
-        )}
-      </fieldset>
-    </div>
+          </Stack>
+        </LocalizationProvider>
+      )}
+    </FormControl>
   );
 }
 
 export default Calc;
-
-// import Radio from '@mui/material/Radio';
-// import RadioGroup from '@mui/material/RadioGroup';
-// import FormControlLabel from '@mui/material/FormControlLabel';
-// import FormControl from '@mui/material/FormControl';
-// import FormLabel from '@mui/material/FormLabel';
-
-// export default function RadioButtonsGroup() {
-//   return (
-//     <FormControl>
-//       <FormLabel id="demo-radio-buttons-group-label">Receita em</FormLabel>
-//       <RadioGroup
-//         aria-labelledby="demo-radio-buttons-group-label"
-//         defaultValue="female"
-//         name="radio-buttons-group"
-//       >
-//         <FormControlLabel value="female" control={<Radio />} label="Female" />
-//         <FormControlLabel value="male" control={<Radio />} label="Male" />
-//         <FormControlLabel value="other" control={<Radio />} label="Other" />
-//       </RadioGroup>
-//     </FormControl>
-//   );
-// }

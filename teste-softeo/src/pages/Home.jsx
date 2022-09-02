@@ -1,19 +1,32 @@
-import React from 'react';
-// import Card from '../components/Card';
+import React, { useState, useEffect } from 'react';
 import Calc from '../components/Calc';
-import pacients from '../api/termIncome.json';
 import CardPatient from '../components/Card';
 import { Grid } from '@mui/material';
+import api from '../api/api';
 
-function Home() {
+const Home = () => {
+  const [patients, setPatients] = useState([]);
+
+  const getPatients = async () => {
+    try {
+      const { data } = await api.get('patients');
+      setPatients(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getPatients();
+  }, []);
+
   return (
     <>
       <Calc />
       <Grid container spacing={2}>
-        {pacients.map((patient) => (
+        {patients?.map((patient) => (
           <Grid
             item
-            direction="row"
             justifyContent="center"
             alignItems="center"
             key={patient.id}
@@ -28,6 +41,6 @@ function Home() {
       </Grid>
     </>
   );
-}
+};
 
 export default Home;
