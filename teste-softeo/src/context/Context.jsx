@@ -23,7 +23,7 @@ export const DEFAULT_VALUES = {
       ],
     },
   ],
-  filtredPatients: [
+  filteredPatients: [
     {
       _id: '630f8a1e197d0840633b24b3',
       name: 'Rafael Scherer',
@@ -51,8 +51,8 @@ export const DEFAULT_VALUES = {
 export const PatientsContext = createContext({
   patients: DEFAULT_VALUES.patients,
   setPatients: () => void 0,
-  filtredPatients: DEFAULT_VALUES.filtredPatients,
-  setFiltredPatients: () => void 0,
+  filteredPatients: DEFAULT_VALUES.filteredPatients,
+  setFilteredPatients: () => void 0,
   filterActived: DEFAULT_VALUES.filterActived,
   setFilterActived: () => void 0,
   income: DEFAULT_VALUES.income,
@@ -61,8 +61,8 @@ export const PatientsContext = createContext({
 
 const PatientsProvider = ({ children }) => {
   const [patients, setPatients] = useState(DEFAULT_VALUES.patients);
-  const [filteredPatients, setFiltredPatients] = useState(
-    DEFAULT_VALUES.filtredPatients,
+  const [filteredPatients, setFilteredPatients] = useState(
+    DEFAULT_VALUES.filteredPatients,
   );
   const [filterActived, setFilterActived] = useState(
     DEFAULT_VALUES.filterActived,
@@ -75,7 +75,7 @@ const PatientsProvider = ({ children }) => {
         patients,
         filteredPatients,
         setPatients,
-        setFiltredPatients,
+        setFilteredPatients,
         filterActived,
         setFilterActived,
         income,

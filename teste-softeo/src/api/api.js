@@ -17,7 +17,6 @@ export const getPatients = async (callback) => {
 };
 
 export const getFilteredPatiens = async (callback, date) => {
-  console.log(date);
   try {
     const { data } = await api.get(
       `patients/installment?selectedMonth=${date}`,

@@ -1,4 +1,5 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { styled, alpha } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -8,8 +9,9 @@ import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
 import BoxComponent from '../partials/Box';
 import { PatientsContext } from '../context/Context';
-import { Link } from 'react-router-dom';
-// import { Button } from '@mui/material';
+import { Button } from '@mui/material';
+import { Stack } from '@mui/system';
+import searchByName from '../helpers/searchName';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -24,16 +26,6 @@ const Search = styled('div')(({ theme }) => ({
     marginLeft: theme.spacing(1),
     width: 'auto',
   },
-}));
-
-const SearchIconWrapper = styled('div')(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: '100%',
-  position: 'absolute',
-  pointerEvents: 'none',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
 }));
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
@@ -54,7 +46,24 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 const SearchAppBar = () => {
-  const { income } = useContext(PatientsContext);
+  const { income, patients, setFilteredPatients, setFilterActived } =
+    useContext(PatientsContext);
+  const [searchName, setSearchName] = useState('');
+
+  const handleChange = ({ target }) => setSearchName(target.value);
+
+  const handleSearch = (name) => {
+    console.log(name);
+    const therePatients = searchByName(patients, name);
+
+    if (therePatients.length !== 0) {
+      setFilterActived(true);
+      setFilteredPatients(therePatients);
+    } else {
+      setFilterActived(false);
+    }
+  };
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -76,7 +85,10 @@ const SearchAppBar = () => {
             component="div"
             sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
           >
-            <Link to="/patient/:id" style={{ textDecoration: 'none', color: 'inherit' }}>
+            <Link
+              to="/patient/:id"
+              style={{ textDecoration: 'none', color: 'inherit' }}
+            >
               Paciente
             </Link>
           </Typography>
@@ -86,18 +98,29 @@ const SearchAppBar = () => {
             component="div"
             sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
           >
-            <Link to="/register" style={{ textDecoration: 'none', color: 'inherit' }}>
+            <Link
+              to="/register"
+              style={{ textDecoration: 'none', color: 'inherit' }}
+            >
               Cadastrar Pacientes
             </Link>
           </Typography>
           <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Buscar"
-              inputProps={{ 'aria-label': 'search' }}
-            />
+            <Stack direction="row" spacing={2}>
+              <Button
+                type="button"
+                id="search-button"
+                onClick={() => handleSearch(searchName)}
+                color="secondary"
+              >
+                <SearchIcon />
+              </Button>
+              <StyledInputBase
+                placeholder="Buscar..."
+                inputProps={{ 'aria-label': 'search' }}
+                onChange={(e) => handleChange(e)}
+              />
+            </Stack>
           </Search>
         </Toolbar>
       </AppBar>

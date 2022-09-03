@@ -18,7 +18,11 @@ import { getFilteredPatiens, getPatients } from '../api/api';
 import { PatientsContext } from '../context/Context';
 
 const RadiosFilter = () => {
-  const { setFiltredPatients, setFilterActived, setPatients } = useContext(PatientsContext);
+  const {
+    setFilteredPatients,
+    setFilterActived,
+    setPatients,
+  } = useContext(PatientsContext);
   const [date, setDate] = useState(dayjs());
   const [showInput, setShowInput] = useState(false);
 
@@ -30,23 +34,26 @@ const RadiosFilter = () => {
       case 'every-months':
         setShowInput(false);
         setFilterActived(false);
-        getPatients(setPatients);
+        await getPatients(setPatients);
       case 'actually-month':
         setShowInput(false);
         setFilterActived(true);
-        await getFilteredPatiens(setFiltredPatients, date.format('DD-MM-YYYY'));
+        await getFilteredPatiens(
+          setFilteredPatients,
+          date.format('DD-MM-YYYY'),
+        );
         break;
       case 'next-month':
         setShowInput(false);
         setFilterActived(true);
         const nextMonth = date.add(1, 'M');
         await getFilteredPatiens(
-          setFiltredPatients,
+          setFilteredPatients,
           nextMonth.format('DD-MM-YYYY'),
         );
       case 'other-month':
         setShowInput(true);
-      
+
       default:
         break;
     }
@@ -75,7 +82,7 @@ const RadiosFilter = () => {
         <FormControlLabel
           value="every-months"
           name="selected-month"
-          label="todos os mês"
+          label="todos os meses"
           onClick={(e) => handleMonth(e)}
           control={<Radio id="every-months" />}
         />
@@ -120,7 +127,7 @@ const RadiosFilter = () => {
                 setFilterActived(true);
                 setDate(newDate);
                 getFilteredPatiens(
-                  setFiltredPatients,
+                  setFilteredPatients,
                   newDate.format('DD-MM-YYYY'),
                 );
               }}
