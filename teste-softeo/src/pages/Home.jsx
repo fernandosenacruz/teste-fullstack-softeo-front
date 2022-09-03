@@ -12,7 +12,7 @@ const Home = () => {
     useContext(PatientsContext);
 
   useEffect(() => {
-    getPatients(setPatients);
+    !filterActived && getPatients(setPatients);
     setIncome(incomeCalc(cardsArray));
   }, [filteredPatients, filterActived]);
 

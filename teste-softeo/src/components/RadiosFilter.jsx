@@ -29,12 +29,12 @@ const RadiosFilter = () => {
   useEffect(() => {}, []);
 
   const handleMonth = async (e) => {
-    console.log(e.target.id);
     switch (e.target.id) {
       case 'every-months':
         setShowInput(false);
         setFilterActived(false);
         await getPatients(setPatients);
+        break;
       case 'actually-month':
         setShowInput(false);
         setFilterActived(true);
@@ -51,25 +51,14 @@ const RadiosFilter = () => {
           setFilteredPatients,
           nextMonth.format('DD-MM-YYYY'),
         );
+        break;
       case 'other-month':
         setShowInput(true);
+        break;          
 
       default:
         break;
     }
-    // if (e.target.id === 'actually-month') {
-    //   setShowInput(false);
-    //   await getFilteredPatiens(setFiltredPatients, date.format('DD-MM-YYYY'));
-    // } else if (e.target.id === 'next-month') {
-    //   setShowInput(false);
-    //   const nextMonth = date.add(1, 'M');
-    //   await getFilteredPatiens(
-    //     setFiltredPatients,
-    //     nextMonth.format('DD-MM-YYYY'),
-    //   );
-    // } else {
-    //   setShowInput(true);
-    // }
   };
 
   return (
