@@ -17,7 +17,7 @@ import pt_BR from 'date-fns/locale/pt-BR';
 import { getFilteredPatiens, getPatients } from '../api/api';
 import { PatientsContext } from '../context/Context';
 
-function Calc() {
+const RadiosFilter = () => {
   const { setFiltredPatients, setFilterActived, setPatients } = useContext(PatientsContext);
   const [date, setDate] = useState(dayjs());
   const [showInput, setShowInput] = useState(false);
@@ -131,6 +131,6 @@ function Calc() {
       )}
     </FormControl>
   );
-}
+};
 
-export default Calc;
+export default RadiosFilter;

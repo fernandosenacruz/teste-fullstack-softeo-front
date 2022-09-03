@@ -1,13 +1,19 @@
 import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './pages/Home';
+import Patient from './pages/Patient';
+import Register from './pages/Register';
 import './App.css';
-import PatientsProvider from './context/Context';
 
 function App() {
   return (
-    <PatientsProvider>
-      <Home />
-    </PatientsProvider>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/patient/:id" element={<Patient />} />
+        <Route path="/register" element={<Register />} />
+      </Routes>
+    </Router>
   );
 }
 

@@ -1,5 +1,5 @@
 import React, { useEffect, useContext } from 'react';
-import Calc from '../components/Calc';
+import RadiosFilter from '../components/RadiosFilter';
 import CardPatient from '../components/Card';
 import { Grid } from '@mui/material';
 import { getPatients } from '../api/api';
@@ -20,7 +20,7 @@ const Home = () => {
   return (
     <>
       <Header />
-      <Calc />
+      <RadiosFilter />
       <Grid container spacing={2}>
         {cardsArray?.map((patient) => (
           <Grid

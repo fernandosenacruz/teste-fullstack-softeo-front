@@ -8,6 +8,8 @@ import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
 import BoxComponent from '../partials/Box';
 import { PatientsContext } from '../context/Context';
+import { Link } from 'react-router-dom';
+// import { Button } from '@mui/material';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -64,7 +66,9 @@ const SearchAppBar = () => {
             component="div"
             sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
           >
-            Início
+            <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
+              Início
+            </Link>
           </Typography>
           <Typography
             variant="h6"
@@ -72,7 +76,9 @@ const SearchAppBar = () => {
             component="div"
             sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
           >
-            Pacientes
+            <Link to="/patient/:id" style={{ textDecoration: 'none', color: 'inherit' }}>
+              Paciente
+            </Link>
           </Typography>
           <Typography
             variant="h6"
@@ -80,7 +86,9 @@ const SearchAppBar = () => {
             component="div"
             sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
           >
-            Cadastrar Pacientes
+            <Link to="/register" style={{ textDecoration: 'none', color: 'inherit' }}>
+              Cadastrar Pacientes
+            </Link>
           </Typography>
           <Search>
             <SearchIconWrapper>
