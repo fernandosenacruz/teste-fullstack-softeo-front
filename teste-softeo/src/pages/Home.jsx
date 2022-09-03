@@ -4,18 +4,22 @@ import CardPatient from '../components/Card';
 import { Grid } from '@mui/material';
 import { getPatients } from '../api/api';
 import { PatientsContext } from '../context/Context';
+import Header from '../components/Header';
+import incomeCalc from '../helpers/incomeCalc';
 
 const Home = () => {
-  const { patients, setPatients, filteredPatients, filterActived } =
+  const { patients, setPatients, filteredPatients, filterActived, setIncome } =
     useContext(PatientsContext);
 
   useEffect(() => {
     getPatients(setPatients);
+    setIncome(incomeCalc(cardsArray));
   }, [filteredPatients, filterActived]);
 
   let cardsArray = filterActived ? filteredPatients : patients;
   return (
     <>
+      <Header />
       <Calc />
       <Grid container spacing={2}>
         {cardsArray?.map((patient) => (

@@ -45,6 +45,7 @@ export const DEFAULT_VALUES = {
     },
   ],
   filterActived: false,
+  income: 0,
 };
 
 export const PatientsContext = createContext({
@@ -54,6 +55,8 @@ export const PatientsContext = createContext({
   setFiltredPatients: () => void 0,
   filterActived: DEFAULT_VALUES.filterActived,
   setFilterActived: () => void 0,
+  income: DEFAULT_VALUES.income,
+  setIncome: () => void 0,
 });
 
 const PatientsProvider = ({ children }) => {
@@ -64,6 +67,7 @@ const PatientsProvider = ({ children }) => {
   const [filterActived, setFilterActived] = useState(
     DEFAULT_VALUES.filterActived,
   );
+  const [income, setIncome] = useState(DEFAULT_VALUES.income);
 
   return (
     <PatientsContext.Provider
@@ -74,6 +78,8 @@ const PatientsProvider = ({ children }) => {
         setFiltredPatients,
         filterActived,
         setFilterActived,
+        income,
+        setIncome,
       }}
     >
       {children}
