@@ -41,7 +41,7 @@ const PaymentMonthTable = ({ paymentMonths }) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {paymentMonths.map((month, i) => (
+          {paymentMonths?.map((month, i) => (
             <StyledTableRow key={i}>
             <StyledTableCell align="center" component="th" scope="row">
                 {i + 1}

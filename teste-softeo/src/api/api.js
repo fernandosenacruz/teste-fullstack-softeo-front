@@ -27,4 +27,13 @@ export const getFilteredPatiens = async (callback, date) => {
   }
 };
 
+export const getPatientById = async (callback, id) => {
+  try {
+    const { data } = await api.get(`patient/${id}`);
+    callback(data);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export default api;

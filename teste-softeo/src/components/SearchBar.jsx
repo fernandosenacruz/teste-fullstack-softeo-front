@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { styled, alpha } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -50,6 +50,9 @@ const SearchAppBar = () => {
     useContext(PatientsContext);
   const [searchName, setSearchName] = useState('');
 
+  const location = useLocation();
+  const route = location.pathname.split('/');
+
   const handleChange = ({ target }) => setSearchName(target.value);
 
   const handleSearch = (name) => {
@@ -68,7 +71,7 @@ const SearchAppBar = () => {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
-          <BoxComponent value={income} />
+          {route.length < 3 && <BoxComponent value={income} />}
           <Typography
             variant="h6"
             noWrap
@@ -99,13 +102,13 @@ const SearchAppBar = () => {
             sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
           >
             <Link
-              to="/register"
+              to="/patient/register"
               style={{ textDecoration: 'none', color: 'inherit' }}
             >
               Cadastrar Pacientes
             </Link>
           </Typography>
-          <Search>
+          {route.length < 3 && <Search>
             <Stack direction="row" spacing={2}>
               <Button
                 type="button"
@@ -121,7 +124,7 @@ const SearchAppBar = () => {
                 onChange={(e) => handleChange(e)}
               />
             </Stack>
-          </Search>
+          </Search>}
         </Toolbar>
       </AppBar>
     </Box>
