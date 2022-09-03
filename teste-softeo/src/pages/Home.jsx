@@ -8,13 +8,20 @@ import Header from '../components/Header';
 import incomeCalc from '../helpers/incomeCalc';
 
 const Home = () => {
-  const { patients, setPatients, filteredPatients, filterActived, setIncome } =
+  const { patients, setPatients, filteredPatients, filterActived, setIncome, income } =
     useContext(PatientsContext);
 
+  const getIncomeFromServer = async () => {
+    if (!filterActived) {
+      await getPatients(setPatients);
+    }
+    
+  };
+
   useEffect(() => {
-    getPatients(setPatients);
+    getIncomeFromServer();
     setIncome(incomeCalc(cardsArray));
-  }, [filteredPatients, filterActived]);
+  }, [filteredPatients, filterActived, income]);
 
   let cardsArray = filterActived ? filteredPatients : patients;
   return (
@@ -27,7 +34,7 @@ const Home = () => {
             item
             justifyContent="center"
             alignItems="center"
-            key={patient.id}
+            key={`${patient.id} - ${patient.name}`}
             xs={12}
             sm={6}
             md={4}
