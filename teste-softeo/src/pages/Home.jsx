@@ -11,15 +11,16 @@ const Home = () => {
   const { patients, setPatients, filteredPatients, filterActived, setIncome, income } =
     useContext(PatientsContext);
 
-  const xibil = async () => {
+  const getIncomeFromServer = async () => {
     if (!filterActived) {
       await getPatients(setPatients);
     }
-    setIncome(incomeCalc(cardsArray));
+    
   };
 
   useEffect(() => {
-    xibil();
+    getIncomeFromServer();
+    setIncome(incomeCalc(cardsArray));
   }, [filteredPatients, filterActived, income]);
 
   let cardsArray = filterActived ? filteredPatients : patients;
