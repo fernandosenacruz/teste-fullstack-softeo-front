@@ -36,4 +36,13 @@ export const getPatientById = async (callback, id) => {
   }
 };
 
+// export const updatePatient = async (
+//   callback,
+//   id,
+//   totalCostDentalTreatment,
+//   numberInstallment
+// ) => {};
+
+// export const updatePatientName = async (callback, id, name) => {};
+
 export default api;
