@@ -1,9 +1,9 @@
 import React, { useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import FormControl from '@mui/material/FormControl';
-import { Button } from '@mui/material';
 
 const FormEditTreatment = ({ handleEditTreatment }) => {
   const form = useRef();
@@ -19,7 +19,7 @@ const FormEditTreatment = ({ handleEditTreatment }) => {
     <FormControl
       ref={form}
       onSubmit={(e) => handleEditTreatment(e, treatmentCost, numberInstallment)}
-      id="btn-edit-Treatment"
+      id="form-edit-Treatment"
     >
       <Box
         component="form"

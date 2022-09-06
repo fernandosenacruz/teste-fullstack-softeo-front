@@ -15,7 +15,7 @@ const FormEditName = ({ handleEditName }) => {
     <FormControl
       ref={form}
       onSubmit={(e) => handleEditName(e, name)}
-      id="btn-edit-name"
+      id="form-edit-name"
     >
       <Box
         component="form"

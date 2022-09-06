@@ -29,6 +29,24 @@ export const getFilteredPatiens = async (callback, date) => {
   }
 };
 
+export const createPatient = async (
+  name,
+  totalCostDentalTreatment,
+  numberInstallment,
+) => {
+  try {
+    const { data } = await api.post('patient', {
+      name,
+      totalCostDentalTreatment,
+      numberInstallment,
+    });
+
+    return data;
+  } catch (error) {
+    return error;
+  }
+};
+
 export const getPatientById = async (callback, id) => {
   try {
     const { data } = await api.get(`patient/${id}`);
@@ -51,9 +69,9 @@ export const updatePatient = async (
     });
 
     return data;
-    } catch (error) {
-      console.log(error);
-      };
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export const updatePatientName = async (id, name) => {
@@ -63,7 +81,7 @@ export const updatePatientName = async (id, name) => {
     return data;
   } catch (error) {
     console.log(error);
-  };
+  }
 };
 
 export const deletePatient = async (callback, id) => {
