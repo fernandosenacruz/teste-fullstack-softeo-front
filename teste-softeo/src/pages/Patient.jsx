@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { getPatientById } from '../api/api';
+import { getPatientById, updatePatientName, updatePatient } from '../api/api';
 import CardPatient from '../components/Card';
 import Header from '../components/Header';
 import FormEditName from '../components/FormEditName';
@@ -36,6 +36,24 @@ const Patient = () => {
     }
   };
 
+  const handleEditName = async (e, name) => {
+    e.preventDefault();
+
+    const data = await updatePatientName(id, name);
+
+    setPatient(data);
+    e.target.reset();
+  };
+
+  const handleEditTreatment = async (e, treatmentCost, numberInstallment) => {
+    e.preventDefault();
+
+    const data = await updatePatient(id, treatmentCost, numberInstallment);
+  
+    setPatient(data);
+    e.target.reset();
+  };
+
   useEffect(() => {
     id !== ':id' && getPatientById(setPatient, id);
   }, [patiens, editName, editTreatment]);
@@ -67,8 +85,10 @@ const Patient = () => {
       <Grid container spacing={2}>
         <Grid item xs={5}>
           <CardPatient patient={patient} />
-          {editName && <FormEditName id={patient.id} />}
-          {editTreatment && <FormEditTreatment />}
+          {editName && <FormEditName handleEditName={handleEditName} />}
+          {editTreatment && (
+            <FormEditTreatment handleEditTreatment={handleEditTreatment} />
+          )}
         </Grid>
       </Grid>
     </>

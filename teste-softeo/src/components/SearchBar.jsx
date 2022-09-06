@@ -56,7 +56,6 @@ const SearchAppBar = () => {
   const handleChange = ({ target }) => setSearchName(target.value);
 
   const handleSearch = (name) => {
-    console.log(name);
     const therePatients = searchByName(patients, name);
 
     if (therePatients.length !== 0) {

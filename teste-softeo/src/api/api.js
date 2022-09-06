@@ -46,8 +46,8 @@ export const updatePatient = async (
 ) => {
   try {
     const { data } = await api.put(`patient/${id}`, {
-      totalCostDentalTreatment,
-      numberInstallment,
+      totalCostDentalTreatment: +totalCostDentalTreatment,
+      numberInstallment: +numberInstallment,
     });
 
     return data;

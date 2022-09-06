@@ -1,11 +1,11 @@
 import React, { useEffect, useContext } from 'react';
+import { PatientsContext } from '../context/Context';
+import Grid from '@mui/material/Grid';
+import Header from '../components/Header';
 import RadiosFilter from '../components/RadiosFilter';
 import CardPatient from '../components/Card';
-import { Grid } from '@mui/material';
-import { getPatients } from '../api/api';
-import { PatientsContext } from '../context/Context';
-import Header from '../components/Header';
 import incomeCalc from '../helpers/incomeCalc';
+import { getPatients } from '../api/api';
 
 const Home = () => {
   const {

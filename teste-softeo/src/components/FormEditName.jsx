@@ -1,32 +1,20 @@
-import React, { useContext, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
+import React, { useRef, useState } from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import FormControl from '@mui/material/FormControl';
-import { getPatients, updatePatientName } from '../api/api';
-import { PatientsContext } from '../context/Context';
 
-const FormEditName = ({ id }) => {
+const FormEditName = ({ handleEditName }) => {
   const form = useRef();
   const [name, setName] = useState('');
-  const { setPatients } = useContext(PatientsContext);
 
   const handleChange = ({ target }) => setName(target.value);
-
-  const handleEditName = async (e) => {
-    e.preventDefault();
-
-    await updatePatientName(id, name);
-    await getPatients(setPatients);
-
-    e.target.reset();
-  };
 
   return (
     <FormControl
       ref={form}
-      onSubmit={(e) => handleEditName(e)}
+      onSubmit={(e) => handleEditName(e, name)}
       id="btn-edit-name"
     >
       <Box
@@ -52,7 +40,7 @@ const FormEditName = ({ id }) => {
 };
 
 FormEditName.propTypes = {
-  id: PropTypes.string,
+  handleEditName: PropTypes.func,
 };
 
 export default FormEditName;
