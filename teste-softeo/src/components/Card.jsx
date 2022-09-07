@@ -5,7 +5,8 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import PaymentMonthTable from './PaymentMonthTable';
-import { Button, Grid } from '@mui/material';
+import Button from '@mui/material/Button';
+import Grid from '@mui/material/Grid';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 const card = ({
@@ -19,7 +20,7 @@ const card = ({
   <Button
     style={{ textDecoration: 'none', color: 'inherit' }}
     onClick={() => navigate(`/patient/${id}`)}>
-    <Grid container direction="row" justifyContent="center" alignItems="center">
+    <Grid container justifyContent="center" alignItems="center">
       <CardContent sx={{ borderRadius: '50' }}>
         <Typography color="text.secondary" variant="h6" gutterBottom>
           Paciente: {name}

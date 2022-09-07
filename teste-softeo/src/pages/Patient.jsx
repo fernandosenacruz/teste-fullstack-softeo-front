@@ -61,8 +61,8 @@ const Patient = () => {
   return (
     <>
       <Header />
-      <Grid container spacing={2}>
-        <Grid item>
+      <Grid container spacing={2} p={1} >
+        <Grid item xs={12}>
           {id !== ':id' && (
             <FormControl>
               <FormLabel id="edit-radio-buttons-group-label">Editar:</FormLabel>
@@ -87,16 +87,14 @@ const Patient = () => {
             </FormControl>
           )}
         </Grid>
-      </Grid>
-      <Grid item xs={5} sm container>
-        <Grid item xs container direction="row" spacing={2}>
-          <Grid item xs>
-            {id !== ':id' && <CardPatient patient={patient} />}
-            {editName && <FormEditName handleEditName={handleEditName} />}
-            {editTreatment && (
-              <FormEditTreatment handleEditTreatment={handleEditTreatment} />
-            )}
-          </Grid>
+        <Grid item xs={5} ml={2}>
+          {id !== ':id' && <CardPatient patient={patient} />}
+        </Grid>
+        <Grid item xs={5}>
+          {editName && <FormEditName handleEditName={handleEditName} />}
+          {editTreatment && (
+            <FormEditTreatment handleEditTreatment={handleEditTreatment} />
+          )}
         </Grid>
       </Grid>
     </>

@@ -24,7 +24,11 @@ const FormEditTreatment = ({ handleEditTreatment }) => {
       <Box
         component="form"
         sx={{
-          '& .MuiTextField-root': { m: 1, width: '25ch' },
+          '& .MuiTextField-root': { m: 1, width: '30ch' },
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
         }}
         required
         autoComplete="off"
