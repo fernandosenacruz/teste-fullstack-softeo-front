@@ -1,9 +1,10 @@
 import React, { useRef, useState } from 'react';
 import PropTypes from 'prop-types';
-import Box from '@mui/material/Box';
+// import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import FormControl from '@mui/material/FormControl';
+import Grid from '@mui/material/Grid';
 
 const FormEditTreatment = ({ handleEditTreatment }) => {
   const form = useRef();
@@ -21,36 +22,31 @@ const FormEditTreatment = ({ handleEditTreatment }) => {
       onSubmit={(e) => handleEditTreatment(e, treatmentCost, numberInstallment)}
       id="form-edit-Treatment"
     >
-      <Box
-        component="form"
-        sx={{
-          '& .MuiTextField-root': { m: 1, width: '30ch' },
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-        required
-        autoComplete="off"
-      >
-        <TextField
-          id="edit-totalCostDentalTreatment"
-          label="editar custo total do tratamento"
-          type="number"
-          required
-          onChange={(e) => handleTreatmentCost(e)}
-        />
-        <TextField
-          required
-          type="number"
-          id="edit-numberInstallment"
-          label="editar número de parcelas"
-          onChange={(e) => handleNumberInstallment(e)}
-        />
+      <Grid component="form" required autoComplete="off" container>
+        <Grid item xs={10}>
+          <TextField
+            fullWidth
+            id="edit-totalCostDentalTreatment"
+            label="editar custo total do tratamento"
+            type="number"
+            required
+            onChange={(e) => handleTreatmentCost(e)}
+          />
+        </Grid>
+        <Grid item xs={10}>
+          <TextField
+            fullWidth
+            required
+            type="number"
+            id="edit-numberInstallment"
+            label="editar número de parcelas"
+            onChange={(e) => handleNumberInstallment(e)}
+          />
+        </Grid>
         <Button type="submit" variant="contained">
           Editar tratamento
         </Button>
-      </Box>
+      </Grid>
     </FormControl>
   );
 };

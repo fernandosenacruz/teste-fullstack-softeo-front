@@ -87,7 +87,7 @@ const Patient = () => {
             </FormControl>
           )}
         </Grid>
-        <Grid item xs={5} ml={2}>
+        <Grid item xs={12} md={5} ml={2}>
           {id !== ':id' && <CardPatient patient={patient} />}
         </Grid>
         <Grid item xs={5}>
