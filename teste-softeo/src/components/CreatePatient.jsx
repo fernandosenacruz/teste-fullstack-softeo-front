@@ -10,15 +10,20 @@ import {
   Button,
   TextField,
   FormControl,
+  Grid,
 } from '@mui/material';
-import { inputNameValidate } from '../helpers/formCreatePatientValidate';
+import {
+  inputNameValidate,
+  inputNumberInstallmentValidate,
+  inputTotalCostDentalTreatmentValidate,
+} from '../helpers/formCreatePatientValidate';
 
 const FormCreatePatient = () => {
   const form = useRef();
   const [open, setOpen] = useState(false);
   const [disabled, setDisabled] = useState(true);
   const [message, setMessage] = useState('');
-  const [alert, setAlert] = useState('');
+  const [alert, setAlert] = useState('Ok');
   const [name, setName] = useState('');
   const [totalCostDentalTreatment, setTotalCostDentalTreatment] = useState('');
   const [numberInstallment, setNumberInstallment] = useState('');
@@ -26,7 +31,9 @@ const FormCreatePatient = () => {
   const handleClose = () => setOpen(false);
 
   const handleChangeName = ({ target }) => {
-    setName(target.value);
+    const REGEX = '/([a-zA-Z]+)s/gi';
+    console.log(target.value.match(REGEX));
+    setName(target.value.match(REGEX));
     const { bool, alert } = inputNameValidate(target.value);
     setDisabled(bool);
     setAlert(alert);
@@ -34,12 +41,16 @@ const FormCreatePatient = () => {
 
   const handleChangeTotalCostDentalTreatment = ({ target }) => {
     setTotalCostDentalTreatment(target.value);
-    inputTotalCostDentalTreatmentValidate(target.value);
+    const { bool, alert } = inputTotalCostDentalTreatmentValidate(target.value);
+    setDisabled(bool);
+    setAlert(alert);
   };
 
   const handleChangeNumberInstallment = ({ target }) => {
     setNumberInstallment(target.value);
-    inputNumberInstallmentValidate(target.value);
+    const { bool, alert } = inputNumberInstallmentValidate(target.value);
+    setDisabled(bool);
+    setAlert(alert);
   };
 
   const handleCreatePatient = async (e) => {
@@ -67,46 +78,56 @@ const FormCreatePatient = () => {
 
   return (
     <>
-      <FormControl
-        ref={form}
-        onSubmit={(e) => handleCreatePatient(e)}
-        id="form-edit-Treatment"
-      >
-        <Box
-          component="form"
-          sx={{
-            '& .MuiTextField-root': { m: 1, width: '30ch' },
-          }}
-          required
-          autoComplete="off"
-        >
-          <div>
-            <TextField
-              type="text"
-              id="outlined-name"
-              label="Nome"
-              placeholder={alert}
-              onChange={(e) => handleChangeName(e)}
+      <Grid container spacing={2}>
+        <Grid item xs={4} >
+          <FormControl
+            ref={form}
+            onSubmit={(e) => handleCreatePatient(e)}
+            id="form-edit-Treatment"
+          >
+            <Box
+              component="form"
+              sx={{
+                '& .MuiTextField-root': { m: 1, width: '30ch' },
+              }}
               required
-            />
-            <TextField
-              id="outlined-totalCostDentalTreatment"
-              label="Custo total do tratamento"
-              onChange={(e) => handleChangeTotalCostDentalTreatment(e)}
-              required
-            />
-            <TextField
-              id="outlined-numberInstallment"
-              label="Número de parcelas"
-              onChange={(e) => handleChangeNumberInstallment(e)}
-              required
-            />
-            <Button type="submit" variant="contained" color="success" disabled={disabled}>
-              Cadastrar Paciente
-            </Button>
-          </div>
-        </Box>
-      </FormControl>
+              autoComplete="off"
+            >
+              <div>
+                {alert !== 'Ok' && <Alert severity="error">{alert}</Alert>}
+                <TextField
+                  id="outlined-name"
+                  label="Nome"
+                  onChange={(e) => handleChangeName(e)}
+                  required
+                />
+                <TextField
+                  type="number"
+                  id="outlined-totalCostDentalTreatment"
+                  label="Custo total do tratamento"
+                  onChange={(e) => handleChangeTotalCostDentalTreatment(e)}
+                  required
+                />
+                <TextField
+                  type="number"
+                  id="outlined-numberInstallment"
+                  label="Número de parcelas"
+                  onChange={(e) => handleChangeNumberInstallment(e)}
+                  required
+                />
+                <Button
+                  type="submit"
+                  variant="contained"
+                  color="success"
+                  disabled={disabled}
+                >
+                  Cadastrar Paciente
+                </Button>
+              </div>
+            </Box>
+          </FormControl>
+        </Grid>
+      </Grid>
       <Dialog
         open={open}
         onClose={handleClose}

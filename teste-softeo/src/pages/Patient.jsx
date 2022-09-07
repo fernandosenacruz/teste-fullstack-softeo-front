@@ -49,7 +49,7 @@ const Patient = () => {
     e.preventDefault();
 
     const data = await updatePatient(id, treatmentCost, numberInstallment);
-  
+
     setPatient(data);
     e.target.reset();
   };
@@ -61,34 +61,42 @@ const Patient = () => {
   return (
     <>
       <Header />
-      <FormControl>
-        <FormLabel id="edit-radio-buttons-group-label">Editar:</FormLabel>
-        <RadioGroup
-          aria-labelledby="edit-radio-buttons-group-label"
-          name="radio-buttons-group"
-        >
-          <FormControlLabel
-            value="edit-name"
-            label="nome"
-            onClick={(e) => handleEdit(e)}
-            control={<Radio id="edit-name" />}
-          />
-          <FormControlLabel
-            value="edit-installment"
-            label="tratamento"
-            onClick={(e) => handleEdit(e)}
-            control={<Radio id="edit-installment" />}
-          />
-        </RadioGroup>
-        {patient.id && <DeletePatientModal patient={patient} />}
-      </FormControl>
       <Grid container spacing={2}>
-        <Grid item xs={5}>
-          <CardPatient patient={patient} />
-          {editName && <FormEditName handleEditName={handleEditName} />}
-          {editTreatment && (
-            <FormEditTreatment handleEditTreatment={handleEditTreatment} />
+        <Grid item>
+          {id !== ':id' && (
+            <FormControl>
+              <FormLabel id="edit-radio-buttons-group-label">Editar:</FormLabel>
+              <RadioGroup
+                aria-labelledby="edit-radio-buttons-group-label"
+                name="radio-buttons-group"
+              >
+                <FormControlLabel
+                  value="edit-name"
+                  label="nome"
+                  onClick={(e) => handleEdit(e)}
+                  control={<Radio id="edit-name" />}
+                />
+                <FormControlLabel
+                  value="edit-installment"
+                  label="tratamento"
+                  onClick={(e) => handleEdit(e)}
+                  control={<Radio id="edit-installment" />}
+                />
+              </RadioGroup>
+              {patient.id && <DeletePatientModal patient={patient} />}
+            </FormControl>
           )}
+        </Grid>
+      </Grid>
+      <Grid item xs={5} sm container>
+        <Grid item xs container direction="row" spacing={2}>
+          <Grid item xs>
+            {id !== ':id' && <CardPatient patient={patient} />}
+            {editName && <FormEditName handleEditName={handleEditName} />}
+            {editTreatment && (
+              <FormEditTreatment handleEditTreatment={handleEditTreatment} />
+            )}
+          </Grid>
         </Grid>
       </Grid>
     </>

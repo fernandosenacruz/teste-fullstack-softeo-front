@@ -9,7 +9,7 @@ import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
 import BoxComponent from '../partials/Box';
 import { PatientsContext } from '../context/Context';
-import { Button } from '@mui/material';
+import Button from '@mui/material/Button';
 import { Stack } from '@mui/system';
 import searchByName from '../helpers/searchName';
 
