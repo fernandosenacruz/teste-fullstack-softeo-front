@@ -31,11 +31,10 @@ const FormCreatePatient = () => {
   const handleClose = () => setOpen(false);
 
   const handleChangeName = ({ target }) => {
-    const REGEX = '/([a-zA-Z]+)s/gi';
-    console.log(target.value.match(REGEX));
-    setName(target.value.match(REGEX));
-    const { bool, alert } = inputNameValidate(target.value);
-    setDisabled(bool);
+    const { regex, length, alert } = inputNameValidate(target.value[target.value.length -1]);
+    regex && setName(target.value);
+    regex && setDisabled(regex);
+    length && setDisabled(length);
     setAlert(alert);
   };
 
@@ -79,7 +78,7 @@ const FormCreatePatient = () => {
   return (
     <>
       <Grid container spacing={2}>
-        <Grid item xs={4} >
+        <Grid item xs={4}>
           <FormControl
             ref={form}
             onSubmit={(e) => handleCreatePatient(e)}
@@ -97,7 +96,9 @@ const FormCreatePatient = () => {
                 {alert !== 'Ok' && <Alert severity="error">{alert}</Alert>}
                 <TextField
                   id="outlined-name"
+                  value={name}
                   label="Nome"
+                  // inputProps={{'onKeyDown': (e) => /[a-z]\s/i.test(e.key)}}                  
                   onChange={(e) => handleChangeName(e)}
                   required
                 />

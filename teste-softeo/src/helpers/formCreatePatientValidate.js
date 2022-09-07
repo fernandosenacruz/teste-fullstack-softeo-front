@@ -1,15 +1,25 @@
 export const inputNameValidate = (value) => {
-  const CODITIONS = !value || value.length < 3;
-  console.log(value, CODITIONS);
-  if (!CODITIONS) {
+  const REGEX = /[a-z]/i;
+  const CODITION_REGEX = REGEX.test(value);
+  const CODITION_LENGTH = value.length < 3;
+  console.log(value, CODITION_REGEX, CODITION_LENGTH);
+  if (CODITION_REGEX && CODITION_LENGTH) {
     return {
-      bool: false,
+      regex: true,
+      length: true,
       alert: 'Ok',
     };
-  } else {
+  } else if (CODITION_REGEX && !CODITION_LENGTH) {
     return {
-      bool: true,
+      regex: true,
+      length: false,
       alert: 'O nome deve ter mais de duas letras',
+    };
+  } else if (!CODITION_REGEX && CODITION_LENGTH) {
+    return {
+      regex: false,
+      length: true,
+      alert: 'O nome não pode conter números',
     };
   }
 };

@@ -75,7 +75,7 @@ const SearchAppBar = () => {
             variant="h6"
             noWrap
             component="div"
-            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
+            sx={{ flexGrow: 1, fontSize: { xs: '14px', md: '20px' } }}
           >
             <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
               Início
@@ -85,7 +85,7 @@ const SearchAppBar = () => {
             variant="h6"
             noWrap
             component="div"
-            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
+            sx={{ flexGrow: 1, fontSize: { xs: '14px', md: '20px' } }}
           >
             <Link
               to="/patient/:id"
@@ -98,7 +98,7 @@ const SearchAppBar = () => {
             variant="h6"
             noWrap
             component="div"
-            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
+            sx={{ flexGrow: 1, fontSize: { xs: '14px', md: '20px' } }}
           >
             <Link
               to="/patient/register"
@@ -107,23 +107,25 @@ const SearchAppBar = () => {
               Cadastrar Pacientes
             </Link>
           </Typography>
-          {route.length < 3 && <Search>
-            <Stack direction="row" spacing={2}>
-              <Button
-                type="button"
-                id="search-button"
-                onClick={() => handleSearch(searchName)}
-                color="secondary"
-              >
-                <SearchIcon />
-              </Button>
-              <StyledInputBase
-                placeholder="Buscar..."
-                inputProps={{ 'aria-label': 'search' }}
-                onChange={(e) => handleChange(e)}
-              />
-            </Stack>
-          </Search>}
+          {route.length < 3 && (
+            <Search>
+              <Stack direction="row" spacing={2}>
+                <Button
+                  type="button"
+                  id="search-button"
+                  onClick={() => handleSearch(searchName)}
+                  color="secondary"
+                >
+                  <SearchIcon />
+                </Button>
+                <StyledInputBase
+                  placeholder="Buscar..."
+                  inputProps={{ 'aria-label': 'search' }}
+                  onChange={(e) => handleChange(e)}
+                />
+              </Stack>
+            </Search>
+          )}
         </Toolbar>
       </AppBar>
     </Box>
