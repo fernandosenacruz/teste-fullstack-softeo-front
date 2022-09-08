@@ -12,51 +12,57 @@ import {
   FormControl,
   Grid,
 } from '@mui/material';
-import {
-  inputNameValidate,
-  inputNumberInstallmentValidate,
-  inputTotalCostDentalTreatmentValidate,
-} from '../helpers/formCreatePatientValidate';
+import useInputs from '../hooks/useInputs';
 
 const FormCreatePatient = () => {
   const form = useRef();
-  const [name, setName] = useState('');
+  const [
+    name,
+    alert,
+    disabled,
+    numberInstallment,
+    totalCostDentalTreatment,
+    handleChangeName,
+    handleChangeNumberInstallment,
+    handleChangeTotalCostDentalTreatment,
+  ] = useInputs();
+  // const [name, setName] = useState('');
   const [open, setOpen] = useState(false);
-  const [alert, setAlert] = useState('Ok');
+  // const [alert, setAlert] = useState('Ok');
   const [message, setMessage] = useState('');
-  const [disabled, setDisabled] = useState(true);
-  const [numberInstallment, setNumberInstallment] = useState('');
-  const [totalCostDentalTreatment, setTotalCostDentalTreatment] = useState('');
+  // const [disabled, setDisabled] = useState(true);
+  // const [numberInstallment, setNumberInstallment] = useState('');
+  // const [totalCostDentalTreatment, setTotalCostDentalTreatment] = useState('');
 
   const handleClose = () => setOpen(false);
 
-  const handleChangeName = ({ target }) => {
-    if (target.value !== '') {
-    const { regex, length, alert } = inputNameValidate(
-      target.value[target.value.length - 1], target.value,
-    );
-    regex && setName(target.value);
-    regex && setDisabled(regex);
-    length && setDisabled(length);
-    setAlert(alert);
-    } else {
-      setName('');
-    }
-  };
+  // const handleChangeName = ({ target }) => {
+  //   if (target.value !== '') {
+  //   const { regex, length, alert } = inputNameValidate(
+  //     target.value[target.value.length - 1], target.value,
+  //   );
+  //   regex && setName(target.value);
+  //   regex && setDisabled(regex);
+  //   length && setDisabled(length);
+  //   setAlert(alert);
+  //   } else {
+  //     setName('');
+  //   }
+  // };
 
-  const handleChangeTotalCostDentalTreatment = ({ target }) => {
-    setTotalCostDentalTreatment(target.value);
-    const { bool, alert } = inputTotalCostDentalTreatmentValidate(target.value);
-    setDisabled(bool);
-    setAlert(alert);
-  };
+  // const handleChangeTotalCostDentalTreatment = ({ target }) => {
+  //   setTotalCostDentalTreatment(target.value);
+  //   const { bool, alert } = inputTotalCostDentalTreatmentValidate(target.value);
+  //   setDisabled(bool);
+  //   setAlert(alert);
+  // };
 
-  const handleChangeNumberInstallment = ({ target }) => {
-    setNumberInstallment(target.value);
-    const { bool, alert } = inputNumberInstallmentValidate(target.value);
-    setDisabled(bool);
-    setAlert(alert);
-  };
+  // const handleChangeNumberInstallment = ({ target }) => {
+  //   setNumberInstallment(target.value);
+  //   const { bool, alert } = inputNumberInstallmentValidate(target.value);
+  //   setDisabled(bool);
+  //   setAlert(alert);
+  // };
 
   const handleCreatePatient = async (e) => {
     e.preventDefault();
