@@ -20,22 +20,28 @@ import {
 
 const FormCreatePatient = () => {
   const form = useRef();
-  const [open, setOpen] = useState(false);
-  const [disabled, setDisabled] = useState(true);
-  const [message, setMessage] = useState('');
-  const [alert, setAlert] = useState('Ok');
   const [name, setName] = useState('');
-  const [totalCostDentalTreatment, setTotalCostDentalTreatment] = useState('');
+  const [open, setOpen] = useState(false);
+  const [alert, setAlert] = useState('Ok');
+  const [message, setMessage] = useState('');
+  const [disabled, setDisabled] = useState(true);
   const [numberInstallment, setNumberInstallment] = useState('');
+  const [totalCostDentalTreatment, setTotalCostDentalTreatment] = useState('');
 
   const handleClose = () => setOpen(false);
 
   const handleChangeName = ({ target }) => {
-    const { regex, length, alert } = inputNameValidate(target.value[target.value.length -1]);
+    if (target.value !== '') {
+    const { regex, length, alert } = inputNameValidate(
+      target.value[target.value.length - 1], target.value,
+    );
     regex && setName(target.value);
     regex && setDisabled(regex);
     length && setDisabled(length);
     setAlert(alert);
+    } else {
+      setName('');
+    }
   };
 
   const handleChangeTotalCostDentalTreatment = ({ target }) => {
@@ -98,7 +104,6 @@ const FormCreatePatient = () => {
                   id="outlined-name"
                   value={name}
                   label="Nome"
-                  // inputProps={{'onKeyDown': (e) => /[a-z]\s/i.test(e.key)}}                  
                   onChange={(e) => handleChangeName(e)}
                   required
                 />
@@ -137,7 +142,7 @@ const FormCreatePatient = () => {
       >
         <DialogTitle id="alert-dialog-title">Cadastro de paciente</DialogTitle>
         <DialogContent>
-          {!message === 'Paciente cadastrado com sucesso!' && (
+          {!message !== 'Paciente cadastrado com sucesso!' && (
             <Alert severity="warning">{message}</Alert>
           )}
           {message === 'Paciente cadastrado com sucesso!' && (
