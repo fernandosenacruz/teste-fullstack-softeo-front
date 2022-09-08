@@ -1,21 +1,26 @@
 import React, { useEffect, useContext } from 'react';
+import { PatientsContext } from '../context/Context';
+import Grid from '@mui/material/Grid';
+import Header from '../components/Header';
 import RadiosFilter from '../components/RadiosFilter';
 import CardPatient from '../components/Card';
-import { Grid } from '@mui/material';
-import { getPatients } from '../api/api';
-import { PatientsContext } from '../context/Context';
-import Header from '../components/Header';
 import incomeCalc from '../helpers/incomeCalc';
+import { getPatients } from '../api/api';
 
 const Home = () => {
-  const { patients, setPatients, filteredPatients, filterActived, setIncome, income } =
-    useContext(PatientsContext);
+  const {
+    patients,
+    setPatients,
+    filteredPatients,
+    filterActived,
+    setIncome,
+    income,
+  } = useContext(PatientsContext);
 
   const getIncomeFromServer = async () => {
     if (!filterActived) {
       await getPatients(setPatients);
     }
-    
   };
 
   useEffect(() => {
@@ -27,8 +32,10 @@ const Home = () => {
   return (
     <>
       <Header />
-      <RadiosFilter />
       <Grid container spacing={2}>
+        <Grid item xs={4}>
+          <RadiosFilter />
+        </Grid>
         {cardsArray?.map((patient) => (
           <Grid
             item

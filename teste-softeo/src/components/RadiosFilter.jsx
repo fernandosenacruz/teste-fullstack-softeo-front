@@ -18,47 +18,37 @@ import { getFilteredPatiens, getPatients } from '../api/api';
 import { PatientsContext } from '../context/Context';
 
 const RadiosFilter = () => {
-  const {
-    setFilteredPatients,
-    setFilterActived,
-    setPatients,
-  } = useContext(PatientsContext);
+  const { setFilteredPatients, setFilterActived, setPatients } =
+    useContext(PatientsContext);
   const [date, setDate] = useState(dayjs());
   const [showInput, setShowInput] = useState(false);
 
   useEffect(() => {}, []);
 
-  const handleMonth = async (e) => {
-    switch (e.target.id) {
-      case 'every-months':
-        setShowInput(false);
-        setFilterActived(false);
-        await getPatients(setPatients);
-        break;
-      case 'actually-month':
-        setShowInput(false);
-        setFilterActived(true);
-        await getFilteredPatiens(
-          setFilteredPatients,
-          date.format('DD-MM-YYYY'),
-        );
-        break;
-      case 'next-month':
-        setShowInput(false);
-        setFilterActived(true);
-        const nextMonth = date.add(1, 'M');
-        await getFilteredPatiens(
-          setFilteredPatients,
-          nextMonth.format('DD-MM-YYYY'),
-        );
-        break;
-      case 'other-month':
-        setShowInput(true);
-        break;          
+  const handleEveryMonths = async () => {
+    setShowInput(false);
+    setFilterActived(false);
+    await getPatients(setPatients);
+  };
 
-      default:
-        break;
-    }
+  const handleActuallyMonth = async () => {
+    setShowInput(false);
+    setFilterActived(true);
+    await getFilteredPatiens(setFilteredPatients, date.format('DD-MM-YYYY'));
+  };
+
+  const handleNextMonth = async () => {
+    setShowInput(false);
+    setFilterActived(true);
+    const nextMonth = date.add(1, 'M');
+    await getFilteredPatiens(
+      setFilteredPatients,
+      nextMonth.format('DD-MM-YYYY'),
+    );
+  };
+
+  const handleOtherMonth = async () => {
+    setShowInput(true);
   };
 
   return (
@@ -72,28 +62,28 @@ const RadiosFilter = () => {
           value="every-months"
           name="selected-month"
           label="todos os meses"
-          onClick={(e) => handleMonth(e)}
+          onClick={() => handleEveryMonths()}
           control={<Radio id="every-months" />}
         />
         <FormControlLabel
           value="actually-month"
           name="selected-month"
           label="mês atual"
-          onClick={(e) => handleMonth(e)}
+          onClick={() => handleActuallyMonth()}
           control={<Radio id="actually-month" />}
         />
         <FormControlLabel
           value="next-month"
           name="selected-month"
           label="próximo mês"
-          onClick={(e) => handleMonth(e)}
+          onClick={(e) => handleNextMonth(e)}
           control={<Radio id="next-month" />}
         />
         <FormControlLabel
           value="other-month"
           name="selected-month"
           label="outra data"
-          onClick={(e) => handleMonth(e)}
+          onClick={(e) => handleOtherMonth(e)}
           control={<Radio id="other-month" />}
         />
       </RadioGroup>

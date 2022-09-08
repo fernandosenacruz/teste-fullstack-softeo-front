@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { styled, alpha } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -9,7 +9,7 @@ import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
 import BoxComponent from '../partials/Box';
 import { PatientsContext } from '../context/Context';
-import { Button } from '@mui/material';
+import Button from '@mui/material/Button';
 import { Stack } from '@mui/system';
 import searchByName from '../helpers/searchName';
 
@@ -50,10 +50,12 @@ const SearchAppBar = () => {
     useContext(PatientsContext);
   const [searchName, setSearchName] = useState('');
 
+  const location = useLocation();
+  const route = location.pathname.split('/');
+
   const handleChange = ({ target }) => setSearchName(target.value);
 
   const handleSearch = (name) => {
-    console.log(name);
     const therePatients = searchByName(patients, name);
 
     if (therePatients.length !== 0) {
@@ -68,12 +70,12 @@ const SearchAppBar = () => {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
-          <BoxComponent value={income} />
+          {route.length < 3 && <BoxComponent value={income} />}
           <Typography
             variant="h6"
             noWrap
             component="div"
-            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
+            sx={{ flexGrow: 1, fontSize: { xs: '14px', md: '20px' } }}
           >
             <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
               Início
@@ -83,7 +85,7 @@ const SearchAppBar = () => {
             variant="h6"
             noWrap
             component="div"
-            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
+            sx={{ flexGrow: 1, fontSize: { xs: '14px', md: '20px' } }}
           >
             <Link
               to="/patient/:id"
@@ -96,32 +98,34 @@ const SearchAppBar = () => {
             variant="h6"
             noWrap
             component="div"
-            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
+            sx={{ flexGrow: 1, fontSize: { xs: '14px', md: '20px' } }}
           >
             <Link
-              to="/register"
+              to="/patient/register"
               style={{ textDecoration: 'none', color: 'inherit' }}
             >
               Cadastrar Pacientes
             </Link>
           </Typography>
-          <Search>
-            <Stack direction="row" spacing={2}>
-              <Button
-                type="button"
-                id="search-button"
-                onClick={() => handleSearch(searchName)}
-                color="secondary"
-              >
-                <SearchIcon />
-              </Button>
-              <StyledInputBase
-                placeholder="Buscar..."
-                inputProps={{ 'aria-label': 'search' }}
-                onChange={(e) => handleChange(e)}
-              />
-            </Stack>
-          </Search>
+          {route.length < 3 && (
+            <Search>
+              <Stack direction="row" spacing={2}>
+                <Button
+                  type="button"
+                  id="search-button"
+                  onClick={() => handleSearch(searchName)}
+                  color="secondary"
+                >
+                  <SearchIcon />
+                </Button>
+                <StyledInputBase
+                  placeholder="Buscar..."
+                  inputProps={{ 'aria-label': 'search' }}
+                  onChange={(e) => handleChange(e)}
+                />
+              </Stack>
+            </Search>
+          )}
         </Toolbar>
       </AppBar>
     </Box>

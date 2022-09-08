@@ -4,22 +4,13 @@ import PropTypes from 'prop-types';
 export const DEFAULT_VALUES = {
   patients: [
     {
-      _id: '630d31cfe3c80f0b555b5cec',
-      name: 'Arthur Bacilla',
-      totalCostDentalTreatment: 10000,
-      numberInstallment: 10,
-      installmentAmount: 1000,
+      _id: '1',
+      name: '',
+      totalCostDentalTreatment: 0,
+      numberInstallment: 0,
+      installmentAmount: 0,
       paymentMonths: [
         '29-9-2022',
-        '29-10-2022',
-        '29-11-2022',
-        '29-12-2022',
-        '29-1-2023',
-        '29-2-2023',
-        '29-3-2023',
-        '29-4-2023',
-        '29-5-2023',
-        '29-6-2023',
       ],
     },
   ],

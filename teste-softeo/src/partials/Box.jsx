@@ -4,7 +4,7 @@ import Box from '@mui/material/Box';
 
 const BoxComponent = ({ value }) => {
   return (
-    <Box
+    value !== 0 && <Box
       component="span"
       sx={{ p: 1, border: '1px white solid', borderRadius: '5px' }}
     >
