@@ -7,21 +7,22 @@ import {
 
 const useInputs = () => {
   const [name, setName] = useState('');
-  const [alert, setAlert] = useState('Ok');
+  const [alert, setAlert] = useState('Os campos com * são obrigatórios');
   const [disabled, setDisabled] = useState(true);
+  const [showAlert, setShowAlert] = useState(true);
   const [numberInstallment, setNumberInstallment] = useState('');
   const [totalCostDentalTreatment, setTotalCostDentalTreatment] = useState('');
 
   const handleChangeName = ({ target }) => {
     if (target.value !== '') {
-      const { regex, length, alert } = inputNameValidate(
+      const { regex, bool, alert, length } = inputNameValidate(
         target.value[target.value.length - 1],
         target.value,
       );
       regex && setName(target.value);
-      regex && setDisabled(regex);
-      length && setDisabled(length);
       setAlert(alert);
+      setDisabled(!regex || !length);
+      setShowAlert(!bool);
     } else {
       setName('');
     }
@@ -29,28 +30,34 @@ const useInputs = () => {
 
   const handleChangeNumberInstallment = ({ target }) => {
     setNumberInstallment(target.value);
-    const { bool, alert } = inputNumberInstallmentValidate(target.value);
-    setDisabled(bool);
+    const { showAlert, alert, disabled } = inputNumberInstallmentValidate(
+      target.value,
+    );
     setAlert(alert);
+    setDisabled(!disabled);
+    setShowAlert(showAlert);
   };
 
   const handleChangeTotalCostDentalTreatment = ({ target }) => {
     setTotalCostDentalTreatment(target.value);
-    const { bool, alert } = inputTotalCostDentalTreatmentValidate(target.value);
-    setDisabled(bool);
+    const { showAlert, alert, disabled } =
+      inputTotalCostDentalTreatmentValidate(target.value);
     setAlert(alert);
+    setDisabled(!disabled);
+    setShowAlert(!showAlert);
   };
 
-  return [
+  return {
     name,
     alert,
     disabled,
+    showAlert,
     numberInstallment,
     totalCostDentalTreatment,
     handleChangeName,
     handleChangeNumberInstallment,
     handleChangeTotalCostDentalTreatment,
-  ];
+  };
 };
 
-export default useInputs();
+export default useInputs;

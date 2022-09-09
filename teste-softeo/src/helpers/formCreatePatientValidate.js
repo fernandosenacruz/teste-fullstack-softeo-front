@@ -1,54 +1,64 @@
 export const inputNameValidate = (value, name) => {
   const REGEX = /[a-z-á-ź\s]/i;
   const CODITION_REGEX = REGEX.test(value);
-  const CODITION_LENGTH = name.length < 3;
-  if (CODITION_REGEX && !CODITION_LENGTH) {
+  const CODITION_LENGTH = name.length > 3;
+  
+  if (CODITION_REGEX && CODITION_LENGTH) {
     return {
-      regex: true,
-      length: true,
       alert: 'Ok',
-    };
-  } else if (CODITION_REGEX && CODITION_LENGTH) {
-    return {
+      bool: true,
+      length: true,
       regex: true,
-      length: false,
+    };
+  } else if (CODITION_REGEX && !CODITION_LENGTH) {
+    return {
       alert: 'O nome deve ter mais de duas letras',
+      bool: false,
+      length: false,
+      regex: true,
     };
   } else if (!CODITION_REGEX) {
     return {
-      regex: false,
-      length: true,
       alert: 'O nome não pode conter números',
+      bool: false,
+      length: true,
+      regex: false,
     };
   }
 };
 
 export const inputTotalCostDentalTreatmentValidate = (value) => {
   const CODITIONS = !value || value < 100;
+
   if (!CODITIONS) {
     return {
-      bool: false,
       alert: 'Ok',
+      showAlert: true,
+      disabled: true,
     };
   } else {
     return {
-      bool: true,
       alert: 'Valor mínimo para tratamento R$ 100',
+      showAlert: false,
+      disabled: false,
     };
   }
 };
 
 export const inputNumberInstallmentValidate = (value) => {
   const CODITIONS = !value || value < 2;
+
   if (!CODITIONS) {
     return {
-      bool: false,
       alert: 'Ok',
+      showAlert: false,
+      disabled: true,
     };
   } else {
     return {
-      bool: true,
       alert: 'Valor mínimo de parcelas: 2',
+      disabled: false,
+      showAlert: true,
     };
   }
 };
