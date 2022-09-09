@@ -37,16 +37,7 @@ const Home = () => {
           <RadiosFilter />
         </Grid>
         {cardsArray?.map((patient) => (
-          <Grid
-            item
-            // justifyContent="center"
-            // alignItems="center"
-            key={`${patient.id} - ${patient.name}`}
-            // xs={12}
-            // sm={6}
-            // md={4}
-            // lg={3}
-          >
+          <Grid item key={`${patient.id} - ${patient.name}`}>
             <CardPatient patient={patient} />
           </Grid>
         ))}
