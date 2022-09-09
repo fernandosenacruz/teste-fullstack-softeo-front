@@ -54,13 +54,16 @@ const RadiosFilter = () => {
 
   return (
     <Grid container spacing={2} p={1}>
-      <Grid item>
-        <FormControl>
-          <FormLabel id="date-radio-buttons-group-label">Receita em:</FormLabel>
-          <RadioGroup
-            aria-labelledby="date-radio-buttons-group-label"
-            name="radio-buttons-group"
-          >
+      {/* <Grid item> */}
+      <FormControl>
+        <FormLabel id="date-radio-buttons-group-label">Receita em:</FormLabel>
+        <RadioGroup
+          row
+          sx={{ m: 1 }}
+          name="radio-buttons-group"
+          aria-labelledby="date-radio-buttons-group-label"
+        >
+          <Grid item xs={12} sm={3}>
             <FormControlLabel
               value="every-months"
               name="selected-month"
@@ -68,6 +71,8 @@ const RadiosFilter = () => {
               onClick={() => handleEveryMonths()}
               control={<Radio id="every-months" />}
             />
+          </Grid>
+          <Grid item xs={12} sm={3}>
             <FormControlLabel
               value="actually-month"
               name="selected-month"
@@ -75,6 +80,8 @@ const RadiosFilter = () => {
               onClick={() => handleActuallyMonth()}
               control={<Radio id="actually-month" />}
             />
+          </Grid>
+          <Grid item xs={12} sm={3}>
             <FormControlLabel
               value="next-month"
               name="selected-month"
@@ -82,6 +89,8 @@ const RadiosFilter = () => {
               onClick={(e) => handleNextMonth(e)}
               control={<Radio id="next-month" />}
             />
+          </Grid>
+          <Grid item xs={12} sm={3}>
             <FormControlLabel
               value="other-month"
               name="selected-month"
@@ -89,38 +98,39 @@ const RadiosFilter = () => {
               onClick={(e) => handleOtherMonth(e)}
               control={<Radio id="other-month" />}
             />
-          </RadioGroup>
+          </Grid>
+        </RadioGroup>
 
-          {showInput && (
-            <LocalizationProvider
-              dateAdapter={AdapterDayjs}
-              adapterLocale={pt_BR}
-              localeText={
-                ptBR.components.MuiLocalizationProvider.defaultProps.localeText
-              }
-            >
-              <Stack spacing={1}>
-                <MobileDatePicker
-                  id="date-income"
-                  name="date-income"
-                  label="Escolha uma data"
-                  value={date}
-                  onChange={(newDate) => {
-                    setFilterActived(true);
-                    setDate(newDate);
-                    getFilteredPatiens(
-                      setFilteredPatients,
-                      newDate.format('DD-MM-YYYY'),
-                    );
-                  }}
-                  renderInput={(params) => <TextField {...params} />}
-                />
-              </Stack>
-            </LocalizationProvider>
-          )}
-        </FormControl>
-      </Grid>
+        {showInput && (
+          <LocalizationProvider
+            dateAdapter={AdapterDayjs}
+            adapterLocale={pt_BR}
+            localeText={
+              ptBR.components.MuiLocalizationProvider.defaultProps.localeText
+            }
+          >
+            <Stack spacing={1}>
+              <MobileDatePicker
+                id="date-income"
+                name="date-income"
+                label="Escolha uma data"
+                value={date}
+                onChange={(newDate) => {
+                  setFilterActived(true);
+                  setDate(newDate);
+                  getFilteredPatiens(
+                    setFilteredPatients,
+                    newDate.format('DD-MM-YYYY'),
+                  );
+                }}
+                renderInput={(params) => <TextField {...params} />}
+              />
+            </Stack>
+          </LocalizationProvider>
+        )}
+      </FormControl>
     </Grid>
+    // </Grid>
   );
 };
 
