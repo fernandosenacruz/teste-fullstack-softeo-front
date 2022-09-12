@@ -11,7 +11,7 @@ const BoxComponent = ({ value }) => {
           p: 1,
           border: '1px white solid',
           borderRadius: '5px',
-          display: { xs: 'none', md: 'block' },
+          display: { xs: 'none', sm:'none', md: 'block' },
         }}
       >
         <span>R$ {value.toFixed(2)}</span>

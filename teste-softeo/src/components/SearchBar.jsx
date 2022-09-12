@@ -75,7 +75,10 @@ const SearchAppBar = () => {
             variant="h6"
             noWrap
             component="div"
-            sx={{ flexGrow: 1, fontSize: { xs: '14px', md: '20px' } }}
+            sx={{
+              flexGrow: 1,
+              fontSize: { xs: '14px', sm: '16px', md: '20px' },
+            }}
           >
             <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
               Início
@@ -85,7 +88,10 @@ const SearchAppBar = () => {
             variant="h6"
             noWrap
             component="div"
-            sx={{ flexGrow: 1, fontSize: { xs: '14px', md: '20px' } }}
+            sx={{
+              flexGrow: 1,
+              fontSize: { xs: '14px', sm: '16px', md: '20px' },
+            }}
           >
             <Link
               to="/patient/:id"
@@ -98,7 +104,7 @@ const SearchAppBar = () => {
             variant="h6"
             noWrap
             component="div"
-            sx={{ flexGrow: 1, fontSize: { xs: '14px', md: '20px' } }}
+            sx={{ flexGrow: 1, fontSize: { xs: '14px', sm: '16px', md: '20px' } }}
           >
             <Link
               to="/patient/register"
@@ -108,7 +114,7 @@ const SearchAppBar = () => {
             </Link>
           </Typography>
           {route.length < 3 && (
-            <Search sx={{ display: { xs: 'none', md: 'block'} }}>
+            <Search sx={{ display: { xs: 'none', sm: 'none', md: 'block' } }}>
               <Stack direction="row" spacing={2}>
                 <Button
                   type="button"
