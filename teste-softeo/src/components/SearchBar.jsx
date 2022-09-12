@@ -108,7 +108,7 @@ const SearchAppBar = () => {
             </Link>
           </Typography>
           {route.length < 3 && (
-            <Search>
+            <Search sx={{ display: { xs: 'none', md: 'block'} }}>
               <Stack direction="row" spacing={2}>
                 <Button
                   type="button"

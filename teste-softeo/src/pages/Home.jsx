@@ -32,21 +32,12 @@ const Home = () => {
   return (
     <>
       <Header />
-      <Grid container spacing={2}>
-        <Grid item xs={4}>
+      <Grid container spacing={2} p={1}>
+        <Grid item xs={12}>
           <RadiosFilter />
         </Grid>
         {cardsArray?.map((patient) => (
-          <Grid
-            item
-            justifyContent="center"
-            alignItems="center"
-            key={`${patient.id} - ${patient.name}`}
-            xs={12}
-            sm={6}
-            md={4}
-            lg={3}
-          >
+          <Grid item key={`${patient.id} - ${patient.name}`}>
             <CardPatient patient={patient} />
           </Grid>
         ))}
