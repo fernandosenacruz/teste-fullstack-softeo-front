@@ -8,55 +8,31 @@ import {
   DialogTitle,
   Box,
   Button,
-  TextField,
   FormControl,
   Grid,
 } from '@mui/material';
-import {
-  inputNameValidate,
-  inputNumberInstallmentValidate,
-  inputTotalCostDentalTreatmentValidate,
-} from '../helpers/formCreatePatientValidate';
+import useInputs from '../hooks/useInputs';
+import InputName from '../partials/InputName';
+import InputCost from '../partials/InputCost';
+import InputInstallment from '../partials/InputInstallment';
 
 const FormCreatePatient = () => {
   const form = useRef();
-  const [name, setName] = useState('');
+  const {
+    name,
+    alert,
+    disabled,
+    showAlert,
+    numberInstallment,
+    totalCostDentalTreatment,
+    handleChangeName,
+    handleChangeNumberInstallment,
+    handleChangeTotalCostDentalTreatment,
+  } = useInputs();
   const [open, setOpen] = useState(false);
-  const [alert, setAlert] = useState('Ok');
   const [message, setMessage] = useState('');
-  const [disabled, setDisabled] = useState(true);
-  const [numberInstallment, setNumberInstallment] = useState('');
-  const [totalCostDentalTreatment, setTotalCostDentalTreatment] = useState('');
 
   const handleClose = () => setOpen(false);
-
-  const handleChangeName = ({ target }) => {
-    if (target.value !== '') {
-    const { regex, length, alert } = inputNameValidate(
-      target.value[target.value.length - 1], target.value,
-    );
-    regex && setName(target.value);
-    regex && setDisabled(regex);
-    length && setDisabled(length);
-    setAlert(alert);
-    } else {
-      setName('');
-    }
-  };
-
-  const handleChangeTotalCostDentalTreatment = ({ target }) => {
-    setTotalCostDentalTreatment(target.value);
-    const { bool, alert } = inputTotalCostDentalTreatmentValidate(target.value);
-    setDisabled(bool);
-    setAlert(alert);
-  };
-
-  const handleChangeNumberInstallment = ({ target }) => {
-    setNumberInstallment(target.value);
-    const { bool, alert } = inputNumberInstallmentValidate(target.value);
-    setDisabled(bool);
-    setAlert(alert);
-  };
 
   const handleCreatePatient = async (e) => {
     e.preventDefault();
@@ -66,8 +42,6 @@ const FormCreatePatient = () => {
       +totalCostDentalTreatment,
       +numberInstallment,
     );
-
-    console.log(message);
 
     if (data.id) {
       setMessage('Paciente cadastrado com sucesso!');
@@ -99,27 +73,17 @@ const FormCreatePatient = () => {
               autoComplete="off"
             >
               <div>
-                {alert !== 'Ok' && <Alert severity="error">{alert}</Alert>}
-                <TextField
-                  id="outlined-name"
-                  value={name}
-                  label="Nome"
-                  onChange={(e) => handleChangeName(e)}
-                  required
+                {showAlert && <Alert severity="error">{alert}</Alert>}
+                <InputName name={name} handleChangeName={handleChangeName} />
+                <InputCost
+                  totalCostDentalTreatment={totalCostDentalTreatment}
+                  handleChangeTotalCostDentalTreatment={
+                    handleChangeTotalCostDentalTreatment
+                  }
                 />
-                <TextField
-                  type="number"
-                  id="outlined-totalCostDentalTreatment"
-                  label="Custo total do tratamento"
-                  onChange={(e) => handleChangeTotalCostDentalTreatment(e)}
-                  required
-                />
-                <TextField
-                  type="number"
-                  id="outlined-numberInstallment"
-                  label="Número de parcelas"
-                  onChange={(e) => handleChangeNumberInstallment(e)}
-                  required
+                <InputInstallment
+                  numberInstallment={numberInstallment}
+                  handleChangeNumberInstallment={handleChangeNumberInstallment}
                 />
                 <Button
                   type="submit"

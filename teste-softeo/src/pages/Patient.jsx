@@ -91,7 +91,7 @@ const Patient = () => {
           {id !== ':id' && <CardPatient patient={patient} />}
         </Grid>
         <Grid item xs={5}>
-          {editName && <FormEditName handleEditName={handleEditName} />}
+          {editName && <FormEditName handleEditName={handleEditName}/>}
           {editTreatment && (
             <FormEditTreatment handleEditTreatment={handleEditTreatment} />
           )}
